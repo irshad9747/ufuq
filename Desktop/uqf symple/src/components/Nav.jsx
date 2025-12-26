@@ -5,7 +5,7 @@ export default function Nav() {
     <nav className="fixed top-0 w-full z-50 backdrop-blur-xl border-b border-white/5 bg-[#03030a]/70">
       <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <img src="/icons/ufuq.png" alt="UFUQ Logo" style={{ height: '35px' }} />
+          <img src="./icons/ufuq.png" alt="UFUQ Logo" style={{ height: '35px' }} />
         </div>
         
         <div className="hidden md:flex gap-8 items-center text-sm font-medium text-gray-400">
