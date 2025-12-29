@@ -1,10 +1,9 @@
-import React, { useMemo } from 'react'
-import { useReveal, useRevealMultiple } from '../hooks/useReveal'
+import { useReveal } from '../hooks/useReveal'
 
-export default function Objectives() {
-  const revealTitle = useReveal()
+const Objectives = () => {
+  const sectionRef = useReveal()
 
-  const objectives = useMemo(() => [
+  const objectives = [
     {
       icon: (
         <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -44,39 +43,47 @@ export default function Objectives() {
       title: 'Islamic Civilizational Imagination',
       description: 'To envision the possibility of engaging with science and technology from within an Islamic civilizational imagination, with the aim of fostering a just and prosperous world order.',
       color: 'amber'
-    }
-  ], [])
+    },
+  ]
 
   const colorClasses = {
-    indigo: 'bg-purple-500/15 border-purple-500/30 text-purple-300',
-    purple: 'bg-indigo-500/15 border-indigo-500/30 text-indigo-300',
-    emerald: 'bg-blue-500/15 border-blue-500/30 text-blue-300',
-    amber: 'bg-violet-500/15 border-violet-500/30 text-violet-300'
+    indigo: 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400',
+    purple: 'bg-purple-500/10 border-purple-500/20 text-purple-400',
+    emerald: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400',
+    amber: 'bg-amber-500/10 border-amber-500/20 text-amber-400',
   }
-
-  const setRevealRef = useRevealMultiple(objectives.length)
 
   return (
     <section id="about" className="py-20 px-6 max-w-7xl mx-auto relative">
-      <div className="absolute right-0 top-1/4 w-96 h-96 bg-purple-600/15 blur-[100px] rounded-full -z-10"></div>
+      <div className="absolute right-0 top-1/4 w-96 h-96 bg-purple-900/10 blur-[100px] rounded-full -z-10"></div>
 
-      <div ref={revealTitle} className="text-center mb-20 reveal">
+      <div ref={sectionRef} className="text-center mb-20 reveal">
         <h2 className="text-3xl md:text-5xl font-bold mb-6">Objectives of Fest</h2>
         <p className="text-gray-400 max-w-2xl mx-auto text-lg">Exploring the intersection of Islamic thought and scientific innovation. Join us for a transformative journey through the rich legacy of Islamic science and its relevance to the contemporary world.</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {objectives.map((obj, index) => (
-          <div key={index} ref={setRevealRef(index)} className={`pro-card p-10 rounded-[2rem] reveal hover:bg-purple-900/15 duration-300`}>
-            <div className={`w-14 h-14 rounded-2xl ${colorClasses[obj.color]} flex items-center justify-center border mb-6`}>
-              {obj.icon}
-            </div>
-            <h3 className="text-xl font-bold mb-3 text-white">{obj.title}</h3>
-            <p className="text-gray-400 text-sm leading-relaxed">{obj.description}</p>
-          </div>
+          <ObjectiveCard key={index} objective={obj} colorClasses={colorClasses} />
         ))}
       </div>
     </section>
   )
 }
+
+const ObjectiveCard = ({ objective, colorClasses }) => {
+  const ref = useReveal()
+
+  return (
+    <div ref={ref} className={`pro-card p-10 rounded-[2rem] reveal hover:bg-indigo-900/10 duration-300 group hover:scale-[1.02] transition-all`}>
+      <div className={`w-14 h-14 rounded-2xl ${colorClasses[objective.color]} flex items-center justify-center border mb-6 group-hover:scale-110 group-hover:shadow-lg transition-all duration-300`}>
+        {objective.icon}
+      </div>
+      <h3 className="text-xl font-bold mb-3 text-white group-hover:text-indigo-200 transition-colors">{objective.title}</h3>
+      <p className="text-gray-400 text-sm leading-relaxed group-hover:text-gray-300 transition-colors">{objective.description}</p>
+    </div>
+  )
+}
+
+export default Objectives
 
